@@ -97,12 +97,14 @@ export default function Task() {
             ) : (
                 ""
             )}
-            {mouseTrackingData.map(({ x, y, timestamp }) => (
-                <div
-                    className="fixed bg-red-500 rounded-xl w-2 h-2"
-                    style={{ top: y, left: x }}
-                ></div>
-            ))}
         </div>
     );
 }
+
+// Add this if you want live mousetracking feedback on screen
+//{mouseTrackingData.map(({ x, y, timestamp }) => (
+//<div
+//className="fixed bg-red-500 rounded-xl w-2 h-2"
+//style={{ top: y, left: x }}
+//></div>
+//))}
