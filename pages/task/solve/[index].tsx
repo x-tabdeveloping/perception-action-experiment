@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import { MousePosition, useExperiment } from "../store/participant";
-import { useTasks } from "../store/task";
+import React, { useEffect, useState } from "react";
+import { MousePosition, useExperiment } from "../../../store/participant";
+import { useTasks } from "../../../store/task";
 
 type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
 const fixedCenter =
@@ -34,7 +34,7 @@ export default function Task() {
     const crossRotation = completed ? "rotate-0" : "rotate-45";
     const [first, second] = order;
     useEffect(() => {
-        const handleMouseMove = (event) => {
+        const handleMouseMove = (event: any) => {
             const mousePos = {
                 x: event.clientX,
                 y: event.clientY,
@@ -74,7 +74,7 @@ export default function Task() {
             router.push("/thankyou");
             return;
         }
-        router.push(`/task/${nextIndex}`);
+        router.push(`/task/present/${nextIndex}`);
     };
     return (
         <div className="text-white fixed w-full h-full flex flex-row bg-black justify-between items-start">

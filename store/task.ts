@@ -3,6 +3,7 @@ import create from "zustand";
 export interface Task {
     correct: string;
     incorrect: string;
+    soundPath: string;
 }
 
 export interface TaskState {

@@ -1,4 +1,4 @@
-import { useExperiment } from "../store/participant";
+import { useExperiment } from "../../store/participant";
 
 export default function ThankYou() {
     const experiment = useExperiment();

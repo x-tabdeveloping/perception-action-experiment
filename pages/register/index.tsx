@@ -1,21 +1,41 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import useWindowDimensions from "../hooks";
-import { useExperiment } from "../store/participant";
-import { Task, useTasks } from "../store/task";
+import { useExperiment } from "../../store/participant";
+import { Task, useTasks } from "../../store/task";
 
 function fetchTasks(nationality: "danish" | "hungarian"): Task[] {
     if (nationality == "danish") {
         return [
-            { correct: "aros", incorrect: "aalborg" },
-            { correct: "sigoejnerbarn", incorrect: "jyde" },
-            { correct: "hooooejh", incorrect: "naaaaaa" },
+            { correct: "aros", incorrect: "aalborg", soundPath: "/dog.mp3" },
+            {
+                correct: "sigoejnerbarn",
+                incorrect: "jyde",
+                soundPath: "/dog.mp3",
+            },
+            {
+                correct: "hooooejh",
+                incorrect: "naaaaaa",
+                soundPath: "/dog.mp3",
+            },
         ];
     } else {
         return [
-            { correct: "kezicsokolom", incorrect: "jonapot" },
-            { correct: "ciganysag", incorrect: "magyarsag" },
-            { correct: "hasizomfalszentistvan", incorrect: "budapest" },
+            {
+                correct: "kezicsokolom",
+                incorrect: "jonapot",
+                soundPath: "/dog.mp3",
+            },
+            {
+                correct: "ciganysag",
+                incorrect: "magyarsag",
+                soundPath: "/dog.mp3",
+            },
+            {
+                correct: "hasizomfalszentistvan",
+                incorrect: "budapest",
+                soundPath: "/dog.mp3",
+            },
         ];
     }
 }
@@ -45,7 +65,7 @@ export default function Registration() {
         });
         const tasks = fetchTasks(nationality);
         setTasks(tasks);
-        router.push("/task/0");
+        router.push("/task/present/0");
     };
     return (
         <div className="bg-black text-white w-full h-full fixed text-white text-xl justify-center content-center items-center flex">
