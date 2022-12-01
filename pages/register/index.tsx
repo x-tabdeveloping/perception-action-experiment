@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
-import useWindowDimensions from "../hooks";
+import useWindowDimensions from "../../utils/hooks";
 import { useExperiment } from "../../store/participant";
 import { Task, useTasks } from "../../store/task";
 

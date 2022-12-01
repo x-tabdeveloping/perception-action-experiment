@@ -72,9 +72,9 @@ export default function Task() {
         const nextIndex = index + 1;
         if (nextIndex >= tasks.length) {
             router.push("/thankyou");
-            return;
+        } else {
+            router.push(`/task/present/${nextIndex}`);
         }
-        router.push(`/task/present/${nextIndex}`);
     };
     return (
         <div className="text-white fixed w-full h-full flex flex-row bg-black justify-between items-start">
