@@ -1,0 +1,5 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [ 'build', '-t', 'gcr.io/perception-and-action/github.com/x-tabdeveloping/perception-action-experiment:$COMMIT_SHA', '-f', 'Dockerfile', '.' ]
+  env:
+  - "FIREBASE_API_KEY=${_FIREBASE_API_KEY}"
