@@ -1,9 +1,11 @@
 import create from "zustand";
+import { Condition } from "./participant";
 
 export interface Task {
     correct: string;
     incorrect: string;
     soundPath: string;
+    condition: Condition;
 }
 
 export interface TaskState {

@@ -1,5 +1,10 @@
 import create from "zustand";
 
+export type Correctness = "correct" | "incorrect";
+export type Condition = "experimental" | "control";
+export type Nationality = "hungarian" | "danish";
+export type Sex = "male" | "female" | "other";
+
 export interface MousePosition {
     x: number;
     y: number;
@@ -8,14 +13,15 @@ export interface MousePosition {
 export interface Result {
     correct: string;
     incorrect: string;
-    chosen: "correct" | "incorrect";
+    chosen: Correctness;
+    condition: Condition;
     elapsedTime: number;
     mouseTrackingData: MousePosition[];
 }
 export interface Participant {
     id: string;
-    nationality: "danish" | "hungarian";
-    sex: "male" | "female" | "other";
+    nationality: Nationality;
+    sex: Sex;
     screenHeight: number;
     screenWidth: number;
 }

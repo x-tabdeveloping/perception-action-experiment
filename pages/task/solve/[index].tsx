@@ -22,6 +22,8 @@ export default function Task() {
     const router = useRouter();
     const route = router.asPath;
     const index = Number(router.query.index);
+    // The first 5 tasks are designated as trial this may have to be redefined later.
+    const isDemo = index < 5;
     const tasks = useTasks((state) => state.tasks);
     const addResult = useExperiment((state) => state.addResult);
     const currentTask = tasks[index];
@@ -58,15 +60,19 @@ export default function Task() {
     }, [route]);
     const onAnswer = (chosen: "correct" | "incorrect") => (e: ButtonEvent) => {
         setCompleted(true);
-        const { correct, incorrect } = currentTask;
+        const { correct, incorrect, condition } = currentTask;
         const result = {
             correct: correct,
             incorrect: incorrect,
             chosen: chosen,
             elapsedTime: Date.now() - startTime,
             mouseTrackingData: mouseTrackingData,
+            condition: condition,
         };
-        addResult(result);
+        // Only add data to participant if the run isn't demo
+        if (!isDemo) {
+            addResult(result);
+        }
     };
     const onComplete = (e: ButtonEvent) => {
         const nextIndex = index + 1;

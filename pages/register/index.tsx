@@ -1,44 +1,20 @@
 import { useRouter } from "next/router";
 import { useState } from "react";
 import useWindowDimensions from "../../utils/hooks";
-import { useExperiment } from "../../store/participant";
+import { Nationality, Sex, useExperiment } from "../../store/participant";
 import { Task, useTasks } from "../../store/task";
+import { danishTasks, hungarianTasks } from "../../tasks/tasks";
 
 function fetchTasks(nationality: "danish" | "hungarian"): Task[] {
     if (nationality == "danish") {
-        return [
-            { correct: "aros", incorrect: "aalborg", soundPath: "/dog.mp3" },
-            {
-                correct: "sigoejnerbarn",
-                incorrect: "jyde",
-                soundPath: "/dog.mp3",
-            },
-            {
-                correct: "hooooejh",
-                incorrect: "naaaaaa",
-                soundPath: "/dog.mp3",
-            },
-        ];
+        return danishTasks;
     } else {
-        return [
-            {
-                correct: "kezicsokolom",
-                incorrect: "jonapot",
-                soundPath: "/dog.mp3",
-            },
-            {
-                correct: "ciganysag",
-                incorrect: "magyarsag",
-                soundPath: "/dog.mp3",
-            },
-            {
-                correct: "hasizomfalszentistvan",
-                incorrect: "budapest",
-                soundPath: "/dog.mp3",
-            },
-        ];
+        return hungarianTasks;
     }
 }
+
+const nationalities: Nationality[] = ["hungarian", "danish"];
+const sexes: Sex[] = ["other", "male", "female"];
 
 const choiceButtonStyle =
     "p-3 flex-1 border-2 border-dotted hover:border-solid rounded-2xl";
@@ -47,10 +23,8 @@ type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
 
 export default function Registration() {
     const [uniqueId, setUniqueId] = useState("");
-    const [nationality, setNationality] = useState<"danish" | "hungarian">(
-        "danish"
-    );
-    const [sex, setSex] = useState<"male" | "female" | "other">("other");
+    const [nationality, setNationality] = useState<Nationality>("danish");
+    const [sex, setSex] = useState<Sex>("other");
     const router = useRouter();
     const setParticipant = useExperiment((state) => state.setParticipant);
     const setTasks = useTasks((state) => state.setTasks);
@@ -84,67 +58,36 @@ export default function Registration() {
                 </div>
                 <div className="flex flex-col space-y-3 items-stretch">
                     <div className="flex items-center">Nationality: </div>
-                    <button
-                        className={`${choiceButtonStyle} ${
-                            nationality == "danish"
-                                ? "border-blue-500"
-                                : "border-white"
-                        }
-                        `}
-                        onClick={(e) => setNationality("danish")}
-                    >
-                        Danish
-                    </button>
-                    <button
-                        className={`${choiceButtonStyle} ${
-                            nationality == "hungarian"
-                                ? "border-blue-500"
-                                : "border-white"
-                        }
-                        `}
-                        onClick={(e) => setNationality("hungarian")}
-                    >
-                        Hungarian
-                    </button>
+                    {nationalities.map((buttonNationality) => (
+                        <button
+                            className={`${choiceButtonStyle} ${
+                                nationality == buttonNationality
+                                    ? "border-blue-500"
+                                    : "border-white"
+                            }
+                            `}
+                            onClick={(e) => setNationality(buttonNationality)}
+                        >
+                            {buttonNationality}
+                        </button>
+                    ))}
                 </div>
                 <div className="flex flex-col space-y-3 items-stretch">
                     <div className="flex items-center">Sex: </div>
-                    <button
-                        className={`${choiceButtonStyle}
-                            ${
-                                sex == "other"
-                                    ? "border-blue-500"
-                                    : "border-white"
-                            }
-                        `}
-                        onClick={(e) => setSex("other")}
-                    >
-                        Other
-                    </button>
-                    <button
-                        className={`${choiceButtonStyle}
-                            ${
-                                sex == "male"
-                                    ? "border-blue-500"
-                                    : "border-white"
-                            }
-                        `}
-                        onClick={(e) => setSex("male")}
-                    >
-                        Male
-                    </button>
-                    <button
-                        className={`${choiceButtonStyle}
-                            ${
-                                sex == "female"
-                                    ? "border-blue-500"
-                                    : "border-white"
-                            }
-                        `}
-                        onClick={(e) => setSex("female")}
-                    >
-                        Female
-                    </button>
+                    {sexes.map((buttonSex) => (
+                        <button
+                            className={`${choiceButtonStyle}
+                                ${
+                                    sex == buttonSex
+                                        ? "border-blue-500"
+                                        : "border-white"
+                                }
+                            `}
+                            onClick={(e) => setSex(buttonSex)}
+                        >
+                            {buttonSex}
+                        </button>
+                    ))}
                 </div>
                 <div className="h-8" />
                 <button
