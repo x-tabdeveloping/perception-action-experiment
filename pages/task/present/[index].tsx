@@ -27,20 +27,24 @@ export default function PresentTask() {
         router.push(`/task/solve/${index}`);
     };
     return (
-        <div className="text-white fixed w-full h-full flex flex-row bg-black justify-between items-start">
-            <button
-                className={`${fixedCenter} text-4xl font-bold ${crossRotation} transition-all`}
-                onClick={completed ? onComplete : undefined}
+        <div className="text-white fixed w-full h-full flex flex-row bg-slate-800 justify-between items-start">
+            <div
+                className={`${fixedCenter} text-white w-[1000px] h-[800px] flex flex-row bg-black justify-between items-start`}
             >
-                +
-            </button>
-            {completed ? (
-                <p className={`${fixedCenter} top-1/3 `}>
-                    Click cross before continuing...
-                </p>
-            ) : (
-                ""
-            )}
+                <button
+                    className={`${fixedCenter} text-4xl font-bold ${crossRotation} transition-all`}
+                    onClick={completed ? onComplete : undefined}
+                >
+                    +
+                </button>
+                {completed ? (
+                    <p className={`${fixedCenter} top-1/3 `}>
+                        Click cross before continuing...
+                    </p>
+                ) : (
+                    ""
+                )}
+            </div>
         </div>
     );
 }
