@@ -34,8 +34,8 @@ export default function Registration() {
             id: uniqueId,
             sex: sex,
             nationality: nationality,
-            screenHeight: dimensions.height,
-            screenWidth: dimensions.width,
+            screenHeight: 800,
+            screenWidth: 1000,
         });
         const tasks = fetchTasks(nationality);
         setTasks(tasks);

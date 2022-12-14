@@ -88,7 +88,7 @@ export default function Task() {
                 className={`${fixedCenter} text-white w-[1000px] h-[800px] flex flex-row bg-black justify-between items-start`}
             >
                 <button
-                    className={`${fixedCenter} text-4xl font-bold ${crossRotation} transition-all`}
+                    className={`absolute left-1/2 -translate-y-1/2 bottom-[10px] text-4xl font-bold ${crossRotation} transition-all`}
                     onClick={completed ? onComplete : undefined}
                 >
                     +
