@@ -29,7 +29,7 @@ export default function PresentTask() {
     return (
         <div className="text-white fixed w-full h-full flex flex-row bg-slate-800 justify-between items-start">
             <div
-                className={`${fixedCenter} text-white w-[1000px] h-[800px] flex flex-row bg-black justify-between items-start`}
+                className={`${fixedCenter} text-white w-[20cm] h-[15cm] flex flex-row bg-black justify-between items-start`}
             >
                 <button
                     className={`absolute left-1/2 -translate-y-1/2 bottom-[10px] text-4xl font-bold ${crossRotation} transition-all`}

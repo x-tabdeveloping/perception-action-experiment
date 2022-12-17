@@ -12,14 +12,12 @@ export default function ConsentForm() {
                     Declaration of consent
                 </div>
                 <div className="flex mb-6">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                    ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit
-                    esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                    occaecat cupidatat non proident, sunt in culpa qui officia
-                    deserunt mollit anim id est laborum.
+                    The purpose of this experiment is to learn more about
+                    perception. Participation is completely voluntary and you
+                    are free to withdraw your consent at any given time during
+                    the experiment. After the experiment, your data will be
+                    anonymised, therefore we will not be able to delete it. If
+                    you agree to the terms above, click the button below.
                 </div>
                 <button
                     className={`self-end m-2 p-8 text-xl font-bold
