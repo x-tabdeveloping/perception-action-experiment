@@ -5,6 +5,9 @@ const buttonStyle =
 
 export default function ConsentForm() {
     const router = useRouter();
+    const onConsent = (e: any) => {
+        router.push("/register");
+    };
     return (
         <div className="bg-black text-white w-full h-full fixed text-white text-xl justify-center content-center items-center flex">
             <div className="w-1/2 flex flex-col justify-between items-stretch">
@@ -23,7 +26,7 @@ export default function ConsentForm() {
                     className={`self-end m-2 p-8 text-xl font-bold
                         border-dashed hover:border-solid border-white border-2
                     `}
-                    onClick={(e) => router.push("/register")}
+                    onClick={onConsent}
                 >
                     I give my consent
                 </button>

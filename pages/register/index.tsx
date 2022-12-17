@@ -34,12 +34,12 @@ export default function Registration() {
             id: uniqueId,
             sex: sex,
             nationality: nationality,
-            screenHeight: 800,
-            screenWidth: 1000,
+            screenHeight: dimensions.height,
+            screenWidth: dimensions.width,
         });
         const tasks = fetchTasks(nationality);
         setTasks(tasks);
-        router.push("/task/present/0");
+        router.push("/explaintask");
     };
     return (
         <div className="bg-black text-white w-full h-full fixed text-white text-xl justify-center content-center items-center flex">

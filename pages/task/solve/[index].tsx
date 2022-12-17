@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { CSSProperties, useEffect, useMemo, useState } from "react";
 import { MousePosition, useExperiment } from "../../../store/participant";
 import { useTasks } from "../../../store/task";
+import { randomizeTask } from "../../../tasks/tasks";
 
 type ButtonEvent = React.MouseEvent<HTMLButtonElement>;
 const fixedCenter =
@@ -26,14 +27,22 @@ export default function Task() {
     const isDemo = index < 5;
     const tasks = useTasks((state) => state.tasks);
     const addResult = useExperiment((state) => state.addResult);
+    const nationality = useExperiment(
+        (state) => state.participant?.nationality
+    );
     const currentTask = tasks[index];
-    const [completed, setCompleted] = useState(false);
+    const randomizedTask = useMemo(
+        () => ({
+            correct: randomizeTask(currentTask.correct, currentTask.condition),
+            incorrect: currentTask.incorrect,
+        }),
+        [currentTask]
+    );
     const [order, setOrder] = useState<Order>(["incorrect", "correct"]);
     const [startTime, setStartTime] = useState<number>(0);
     const [mouseTrackingData, setMouseTrackingData] = useState<MousePosition[]>(
         []
     );
-    const crossRotation = completed ? "rotate-0" : "rotate-45";
     const [first, second] = order;
     useEffect(() => {
         const handleMouseMove = (event: any) => {
@@ -42,9 +51,7 @@ export default function Task() {
                 y: event.clientY,
                 timestamp: Date.now() - startTime,
             };
-            if (!completed) {
-                setMouseTrackingData([...mouseTrackingData, mousePos]);
-            }
+            setMouseTrackingData([...mouseTrackingData, mousePos]);
         };
         window.addEventListener("mousemove", handleMouseMove);
         return () => {
@@ -53,13 +60,11 @@ export default function Task() {
     }, [route, mouseTrackingData, startTime]);
     useEffect(() => {
         // This resets state on each route change
-        setCompleted(false);
         setOrder(randomOrder());
         setStartTime(Date.now());
         setMouseTrackingData([]);
     }, [route]);
     const onAnswer = (chosen: "correct" | "incorrect") => (e: ButtonEvent) => {
-        setCompleted(true);
         const { correct, incorrect, condition } = currentTask;
         const result = {
             correct: correct,
@@ -73,41 +78,39 @@ export default function Task() {
         if (!isDemo) {
             addResult(result);
         }
-    };
-    const onComplete = (e: ButtonEvent) => {
         const nextIndex = index + 1;
         if (nextIndex >= tasks.length) {
             router.push("/thankyou");
+        } else if (nextIndex == 5) {
+            router.push("/trialend");
         } else {
             router.push(`/task/present/${nextIndex}`);
         }
     };
+    const onComplete = (e: ButtonEvent) => {};
+    const participant = useExperiment((state) => state.participant);
+    const screenHeight = participant?.screenHeight || 0;
+    const containerStyle: CSSProperties = {
+        width: screenHeight,
+        height: screenHeight,
+    };
     return (
         <div className="text-white fixed w-full h-full flex flex-row bg-slate-800 justify-between items-start">
             <div
-                className={`${fixedCenter} text-white w-[20cm] h-[15cm] flex flex-row bg-black justify-between items-start`}
+                className={`${fixedCenter} text-white flex flex-row bg-black justify-between items-start`}
+                style={containerStyle}
             >
-                <button
-                    className={`absolute left-1/2 -translate-y-1/2 bottom-[10px] text-4xl font-bold ${crossRotation} transition-all`}
-                    onClick={completed ? onComplete : undefined}
-                >
-                    +
-                </button>
                 <button className={buttonStyle} onClick={onAnswer(first)}>
-                    {currentTask[first]}
+                    {randomizedTask[first]}
                 </button>
                 <button className={buttonStyle} onClick={onAnswer(second)}>
-                    {currentTask[second]}
+                    {randomizedTask[second]}
                 </button>
-                {completed ? (
-                    <p className={`${fixedCenter} top-1/3 `}>
-                        Click cross before continuing...
-                    </p>
-                ) : (
-                    <p className={`${fixedCenter} top-1/3 italic `}>
-                        Which word did you hear?
-                    </p>
-                )}
+                <p className={`${fixedCenter} top-1/3 italic `}>
+                    {nationality == "danish"
+                        ? "Hvilket ord hørte du?"
+                        : "Melyik szót hallottad?"}
+                </p>
             </div>
         </div>
     );

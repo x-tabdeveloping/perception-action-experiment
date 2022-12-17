@@ -4,8 +4,8 @@ import { Condition } from "./participant";
 export interface Task {
     correct: string;
     incorrect: string;
-    soundPath: string;
     condition: Condition;
+    soundPath: string;
 }
 
 export interface TaskState {
