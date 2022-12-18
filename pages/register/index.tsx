@@ -48,7 +48,9 @@ export default function Registration() {
                     Participant information
                 </div>
                 <div className="flex flex-col space-y-3 items-stretch">
-                    <div className="flex items-center">Unique ID: </div>
+                    <div className="flex items-center">
+                        Nickname/Unique ID:{" "}
+                    </div>
                     <input
                         type="text"
                         value={uniqueId}
